@@ -13,7 +13,7 @@ addUser(state,action){
   state.data=action.payload  
 },
 removeUser(state,action){
-return null
+state.data=null
 }
     }
 })

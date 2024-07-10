@@ -1,11 +1,19 @@
-import Header from "./Header"
-
+import Header from "./Header";
+import useNowPlaying from "../customHook/useNowPlaying";
+import MainContainer from "./MainContainer";
+import SecondaryContainer from "./SecondaryContainer";
 function Browse() {
-    return (
-        <div>
-            <Header/>
-        </div>
-    )
+useNowPlaying()
+
+  return (
+    <div>
+   
+      <Header />
+     
+      <MainContainer/>
+      <SecondaryContainer/>
+    </div>
+  );
 }
 
-export default Browse
+export default Browse;

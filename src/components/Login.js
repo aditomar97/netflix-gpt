@@ -8,15 +8,16 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../firebase";
-import { useNavigate } from "react-router-dom";
+
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { USER_AVATAR } from "../utils/constant";
 const Login = () => {
   const [isSignIsForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const { register, handleSubmit, reset, formState } = useForm();
   const { errors } = formState;
-  const navigate = useNavigate();
+
   const dispatch = useDispatch();
 
   const handleSubmitForm = (data) => {
@@ -31,7 +32,7 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: data?.fullName,
-            photoURL: "https://example.com/jane-q-user/profile.jpg",
+            photoURL: USER_AVATAR,
           }).then(() => {
               //console.log("--------aditya-----",auth);
               const { uid, email, displayName, photoURL } = auth.currentUser;
@@ -44,7 +45,7 @@ const Login = () => {
                   photoURL: photoURL,
                 })
               );
-              navigate('/browse');
+             
             })
             
 
@@ -54,7 +55,7 @@ const Login = () => {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-
+              setErrorMessage(errorMessage)
           // ..
         });
     } else {
@@ -66,11 +67,12 @@ const Login = () => {
           // const { uid, email, displayName } = user;
           // dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
           // ...
-          navigate("/browse");
+          
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
+          setErrorMessage(errorMessage)
         });
     }
   };
